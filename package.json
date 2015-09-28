@@ -1,0 +1,19 @@
+{
+  "name": "react-bind-observables",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Riim/react-bind-observables.git"
+  },
+  "author": "Dmitry Vibe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Riim/react-bind-observables/issues"
+  },
+  "homepage": "https://github.com/Riim/react-bind-observables#readme"
+}
