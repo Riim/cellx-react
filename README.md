@@ -1,38 +1,62 @@
-# react-bind-observables
+cellx-react
+===========
+
+## Install
+
+```
+npm install cellx cellx-decorators react react-dom cellx-react --save
+```
+
+More about cellx-decorators: [cellx-decorators](https://github.com/Riim/cellx-decorators/blob/master/README.md).
 
 ## Example
 
 ```js
-import { d } from 'cellx';
+import { observable, computed } from 'cellx-decorators';
 import React from 'react';
-import bindObservables from 'react-bind-observables';
+import ReactDOM from 'react-dom';
+import { observer } from 'cellx-react';
 
 class User {
-    @d.observable age = 20;
+	@observable name = void 0;
 
-    @d.computed ageYearLater = function() {
-        return this.age + 1;
-    };
+	@observable birthdate = void 0;
+	@computed age = function() {
+		return birthdateToAge(this.birthdate);
+	};
+
+	constructor(name, birthdate) {
+		this.name = name;
+		this.birthdate = birthdate;
+	}
 }
 
-let user = new User();
+let user = new User('Матроскин', '05/03/2006');
 
-setInterval(function() {
-    user.age++;
-}, 1000);
+@observer
+class UserCard extends React.Component {
+	@computed ageLess18 = function() {
+		return user.age < 18;
+	};
 
-@bindObservables
-export default class UserCard extends React.Component {
-    @d.computed userAgeTwoYearsLater = function() {
-        return user.ageYearLater + 1;
-    };
+	render() {
+		return (<p>
+			Привет, {user.name}!
+			{` Вам ${ this.ageLess18 ? 'ещё нет' : 'уже есть' } 18 лет (вам ${ user.age }).`}
+		</p>);
+	}
+}
 
-    render() {
-        return (<div>
-            <p>age: {user.age}</p>
-            <p>ageYearLater: {user.ageYearLater}</p>
-            <p>ageTwoYearsLater: {this.userAgeTwoYearsLater}</p>
-        </div>);
-    }
+ReactDOM.render(
+	<UserCard/>,
+	document.getElementById('example')
+);
+
+// Вычисляет возраст по дате рождения.
+function birthdateToAge(birthdate) {
+	birthdate = new Date(birthdate);
+	let now = new Date();
+	let age = now.getFullYear() - birthdate.getFullYear();
+	return now.setFullYear(1972) < birthdate.setFullYear(1972) ? age - 1 : age;
 }
 ```

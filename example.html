@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="node_modules/cellx/dist/cellx.js"></script>
+	<script src="node_modules/cellx-decorators/dist/cellx-decorators.js"></script>
+	<script src="node_modules/react/dist/react.js"></script>
+	<script src="node_modules/react-dom/dist/react-dom.js"></script>
+	<script src="dist/cellx-react.js"></script>
+</head>
+<body>
+
+<div id="example"></div>
+
+<script type="text/esnext">
+
+let { observable, computed } = window['cellx-decorators'];
+let { observer } = window['cellx-react'];
+
+class Hero {
+	@observable name = void 0;
+	@observable age = void 0;
+
+	constructor(name, age) {
+		this.name = name;
+		this.age = age;
+	}
+}
+
+class Cat extends Hero {
+	@computed ageStatus = function() {
+		let age = this.age;
+
+		if (age >= 24) { return 'древний котэ'; }
+		if (age >= 20) { return 'древний кот'; }
+		if (age >= 16) { return 'мудрый кот'; }
+		if (age >= 12) { return 'ваще котяра'; }
+		if (age >= 8) { return 'котяра'; }
+		if (age >= 6) { return 'кот в самом расцвете сил'; }
+		if (age >= 4) { return 'кот'; }
+		if (age >= 2) { return 'молодой кот'; }
+		if (age >= 1) { return 'котёнок'; }
+		if (age == 0) { return 'совсем котёнок'; }
+	};
+}
+
+let cat = new Cat('Матроскин', 0);
+
+setInterval(function() {
+	cat.age++;
+}, 1000);
+
+@observer
+class HeroCard extends React.Component {
+	render() {
+		return (<p>
+			Привет, {cat.name}!
+			{` Вы ${ cat.ageStatus } (${ cat.age }).`}
+		</p>);
+	}
+}
+
+ReactDOM.render(
+	<HeroCard/>,
+	document.getElementById('example')
+);
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+<script>
+
+Array.prototype.forEach.call(document.querySelectorAll('script[type="text/esnext"]'), function(script) {
+	babel.run(script.innerHTML, {
+		optional: ['es7.classProperties', 'es7.decorators']
+	});
+});
+
+</script>
+
+</body>
+</html>

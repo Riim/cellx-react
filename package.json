@@ -1,19 +1,27 @@
 {
-  "name": "react-bind-observables",
-  "version": "0.2.0",
+  "name": "cellx-react",
+  "version": "0.3.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/cellx-react.js",
   "scripts": {
+    "build": "node_modules/.bin/webpack src/cellx-react.js dist/cellx-react.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Riim/react-bind-observables.git"
+    "url": "git+https://github.com/Riim/cellx-react.git"
   },
   "author": "Dmitry Vibe",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Riim/react-bind-observables/issues"
+    "url": "https://github.com/Riim/cellx-react/issues"
   },
-  "homepage": "https://github.com/Riim/react-bind-observables#readme"
+  "homepage": "https://github.com/Riim/cellx-react#readme",
+  "devDependencies": {
+    "cellx": "^1.6.28",
+    "cellx-decorators": "^1.0.5",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "webpack": "^1.13.1"
+  }
 }
