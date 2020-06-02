@@ -3,11 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title></title>
-	<script src="node_modules/cellx/dist/cellx.js"></script>
-	<script src="node_modules/cellx-decorators/dist/cellx-decorators.js"></script>
-	<script src="node_modules/react/dist/react.js"></script>
-	<script src="node_modules/react-dom/dist/react-dom.js"></script>
-	<script src="dist/cellx-react.js"></script>
+	<script src="node_modules/cellx/dist/cellx.umd.js"></script>
+	<script src="node_modules/cellx-decorators/dist/cellx-decorators.umd.js"></script>
+	<script src="node_modules/react/umd/react.development.js"></script>
+	<script src="node_modules/react-dom/umd/react-dom.development.js"></script>
+	<script src="dist/cellx-react.umd.js"></script>
 </head>
 <body>
 
@@ -15,12 +15,12 @@
 
 <script type="text/esnext">
 
-let { observable, computed } = window['cellx-decorators'];
+let { Observable, Computed } = window['cellx-decorators'];
 let { observer } = window['cellx-react'];
 
 class Hero {
-	@observable name = void 0;
-	@observable age = void 0;
+	@Observable name = null;
+	@Observable age = null;
 
 	constructor(name, age) {
 		this.name = name;
@@ -29,7 +29,8 @@ class Hero {
 }
 
 class Cat extends Hero {
-	@computed ageStatus = function() {
+	@Computed
+	get ageStatus() {
 		let age = this.age;
 
 		if (age >= 24) { return 'древний котэ'; }
@@ -42,7 +43,7 @@ class Cat extends Hero {
 		if (age >= 2) { return 'молодой кот'; }
 		if (age >= 1) { return 'котёнок'; }
 		if (age == 0) { return 'совсем котёнок'; }
-	};
+	}
 }
 
 let cat = new Cat('Матроскин', 0);
