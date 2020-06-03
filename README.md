@@ -12,18 +12,19 @@ More about cellx-decorators: [cellx-decorators](https://github.com/Riim/cellx-de
 ## Example
 
 ```js
-import { observable, computed } from 'cellx-decorators';
+import { Observable, Computed } from 'cellx-decorators';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { observer } from 'cellx-react';
+import { Observer } from 'cellx-react';
 
 class User {
-	@observable name = void 0;
+	@Observable name = void 0;
+	@Observable birthdate = void 0;
 
-	@observable birthdate = void 0;
-	@computed age = function() {
+	@Computed
+	get age() {
 		return birthdateToAge(this.birthdate);
-	};
+	}
 
 	constructor(name, birthdate) {
 		this.name = name;
@@ -33,17 +34,20 @@ class User {
 
 let user = new User('Матроскин', '05/03/2006');
 
-@observer
+@Observer
 class UserCard extends React.Component {
-	@computed ageLess18 = function() {
+	@Computed
+	get ageLess18() {
 		return user.age < 18;
-	};
+	}
 
 	render() {
-		return (<p>
-			Привет, {user.name}!
-			{` Вам ${ this.ageLess18 ? 'ещё нет' : 'уже есть' } 18 лет (вам ${ user.age }).`}
-		</p>);
+		return (
+			<p>
+				Привет, {user.name}!
+				{` Вам ${ this.ageLess18 ? 'ещё нет' : 'уже есть' } 18 лет (вам ${ user.age }).`}
+			</p>
+		);
 	}
 }
 

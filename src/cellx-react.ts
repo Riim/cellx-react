@@ -6,6 +6,11 @@ export const KEY_ON_RENDERED_CHANGE = Symbol('onRenderedChange');
 export function Observer<T extends Function>(componentClass: T): T {
 	let proto = componentClass.prototype;
 	let origRender = proto.render;
+
+	if (!origRender) {
+		return componentClass;
+	}
+
 	let origComponentDidMount = proto.componentDidMount;
 	let origComponentWillUnmount = proto.componentWillUnmount;
 	let origShouldComponentUpdate = proto.shouldComponentUpdate;

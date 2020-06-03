@@ -16,7 +16,7 @@
 <script type="text/esnext">
 
 let { Observable, Computed } = window['cellx-decorators'];
-let { observer } = window['cellx-react'];
+let { Observer } = window['cellx-react'];
 
 class Hero {
 	@Observable name = null;
@@ -52,13 +52,15 @@ setInterval(function() {
 	cat.age++;
 }, 1000);
 
-@observer
+@Observer
 class HeroCard extends React.Component {
 	render() {
-		return (<p>
-			Привет, {cat.name}!
-			{` Вы ${ cat.ageStatus } (${ cat.age }).`}
-		</p>);
+		return (
+			<p>
+				Привет, {cat.name}!
+				{` Вы ${ cat.ageStatus } (${ cat.age }).`}
+			</p>
+		);
 	}
 }
 
