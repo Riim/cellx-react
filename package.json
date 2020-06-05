@@ -24,15 +24,15 @@
     "eslint-config-prettier": "^6.11.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "rollup": "^2.12.0",
+    "rollup": "2.13.1",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-eslint": "^7.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript2": "^0.27.1",
-    "typescript": "^3.9.3"
+    "typescript": "^3.9.5"
   },
   "dependencies": {
-    "cellx": "^1.10.7",
+    "cellx": "^1.10.8",
     "cellx-decorators": "^1.6.2"
   }
 }

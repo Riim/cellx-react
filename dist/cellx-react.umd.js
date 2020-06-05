@@ -15,24 +15,23 @@
 	    let origComponentDidMount = proto.componentDidMount;
 	    let origComponentWillUnmount = proto.componentWillUnmount;
 	    let origShouldComponentUpdate = proto.shouldComponentUpdate;
-	    proto[KEY_RENDERED] = cellx.cellx(function () {
-	        return origRender.call(this);
-	    });
-	    function onRenderedChange() {
+	    proto[KEY_ON_RENDERED_CHANGE] = function () {
 	        this.forceUpdate();
-	    }
-	    proto[KEY_ON_RENDERED_CHANGE] = onRenderedChange;
+	    };
 	    proto.render = function () {
-	        return this[KEY_RENDERED]();
+	        return (this[KEY_RENDERED] ||
+	            (this[KEY_RENDERED] = cellx.cellx(function () {
+	                return origRender.call(this);
+	            }, { context: this, onChange: () => { } })))();
 	    };
 	    proto.componentDidMount = function () {
-	        this[KEY_RENDERED].onChange(onRenderedChange, this);
+	        this[KEY_RENDERED].onChange(this[KEY_ON_RENDERED_CHANGE], this);
 	        if (origComponentDidMount) {
 	            origComponentDidMount.call(this);
 	        }
 	    };
 	    proto.componentWillUnmount = function () {
-	        this[KEY_RENDERED].offChange(onRenderedChange, this);
+	        this[KEY_RENDERED].off();
 	        if (origComponentWillUnmount) {
 	            origComponentWillUnmount.call(this);
 	        }
